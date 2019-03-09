@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-  <div class="row">
+  <div class="row top-row">
     <h2></h2>
   </div>
   <div class="grid">
@@ -8,20 +8,20 @@
       <h4>Sentiment Analysis of File - {{fileNumber}}</h4>
     </div>
 
-    <div class="row">
-      <div class="col-md-6 sentiment-emotion">Happy- 60%</div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 sentiment-emotion">Angry- 40%</div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 sentiment-emotion">Sarcastic- 50%</div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 sentiment-emotion ">OverAll Sentiment- Happy</div>
+    <div class="row" *ngFor = "let emotion of emotions">
+      
+       <span class = "col-md-1 smiley">{{switchEmotion(emotion.sentiment)}}</span><div class="col-md-6 sentiment-emotion">{{emotion.sentiment}}</div>
+      
+  
+      </div>
+    
+    <div class="row overall-sentiment">
+      <div class="col-md-4 sentiment-emotion ">Overall Sentiment: <b style= "font-size: 1.5em; font-weight: 900">{{overAllEmotion}}</b></div><span class = "col-md-1 smiley">{{switchEmotion(overAllEmotion)}}</span>
     </div>
   </div>
-  <div class="row">
-      <div class="col-md-6 sentiment-emotion "><a [routerLink] = "['/home']">Home</a></div>
+
+
+  <div class="row home-link">
+      <div class="col-md-4 sentiment-emotion "><a [routerLink] = "['/home']">Home</a></div>
     </div>
 </div>

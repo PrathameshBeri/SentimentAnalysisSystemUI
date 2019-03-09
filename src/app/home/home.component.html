@@ -26,23 +26,23 @@
       <div class="col-md-6">
         <input type="file" (change)="onAileChange($event)" accept="audio/*, video/*">
       </div>
-      <div class = "col-md-6">
-      <button type="submit" [disabled] = "!isFileProcessed" style="margin: 5px 0px;">Submit</button>
+      <div class="col-md-6">
+        <button type="submit" [disabled]="!isFileProcessed" style="margin: 5px 0px;">Submit</button>
       </div>
 
     </form>
 
   </div>
-  
-  <div [hidden]="!recordingsUploaded" class = "uploaded-recordings-class">
+
+  <div [hidden]="!recordingsUploaded" class="uploaded-recordings-class">
     <div>
       <span>{{uploadedRecordingsTitle}}</span>
     </div>
     <ul>
       <li *ngFor="let recording of UploadedRecordings">
-        
-        <a href = "#" [routerLink] = "['/sentiment-analysis/' + recording.ts]"><span>{{recording.name}}</span>
-          <span>{{recording.ts}}</span></a>
+
+        <a href="#" [routerLink]="['/sentiment-analysis/' + recording.timeStamp]"><span style = "margin-right: 10px">{{recording.fileName}}</span>
+         <span >{{recording.timeStamp}}</span></a>
       </li>
     </ul>
 
