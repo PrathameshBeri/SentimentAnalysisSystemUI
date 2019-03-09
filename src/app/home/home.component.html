@@ -19,17 +19,16 @@
 
   <div class="form-group" [hidden]="!uploadRecording">
 
-    <form [formGroup]="audioForm" (ngSubmit)="submitAudio()">
+    <form [formGroup]="formGroup" novalidate (ngSubmit)="submitAudio()">
       <div class="col-md-4">
         <span>File Name:</span> <input type="text" formControlName="name" class="form-control" id="userName">
       </div>
       <div class="col-md-6">
-        <input type="file" style="margin: 5px 0px;" formControlName="audioFile" name="fileUpload"
-          accept="audio/*, video/*">
+        <input type="file" (change)="onFileChange($event)" accept="audio/*, video/*" >
       </div>
-      <div class="col-md-6">
-        <input type="submit" style="margin: 5px 0px;">
-      </div>
+      
+        <button type="submit" style="margin: 5px 0px;">Submit</button>
+      
 
     </form>
 
@@ -41,11 +40,19 @@
     </div>
     <ul>
       <li *ngFor="let recording of UploadedRecordings">
-        <span>recording.name</span>
-        <span>recording.date</span>
+        <span>{{recording.name}}</span>
+        <span></span>
+        <a routerLink ="/sentiment-analysis">{{recording.date}}</a>
       </li>
     </ul>
 
   </div>
+
+  <!-- <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+
+  <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
+    [disabled]="!uploader.getNotUploadedItems().length">
+    Upload an Image
+  </button> -->
 
 </div>
