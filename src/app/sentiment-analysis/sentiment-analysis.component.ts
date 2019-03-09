@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
 
 @Component({
   selector: 'app-sentiment-analysis',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SentimentAnalysisComponent implements OnInit {
 
-  constructor() { }
+  fileNumber ;
+  constructor(private route: ActivatedRoute) {
+    this.fileNumber = route.snapshot.params.id;
+   }
 
   ngOnInit() {
+
+  
   }
 
 }

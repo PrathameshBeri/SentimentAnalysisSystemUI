@@ -24,9 +24,9 @@ export class HomeComponent implements OnInit {
   uploadedRecordingsTitle = "Uploaded Recordings";
 
   UploadedRecordings: any = [
-    { name: "File 1", date: "3-9-2018" },
-    { name: "Test File", date: "3-10-2018" },
-    { name: "Testing", date: "3-11-2018" }
+    { name: "File 1", ts: "2018" },
+    { name: "Test File", ts: "2019" },
+    { name: "Testing", ts: "3" }
 
 
   ]
@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.isFileProcessed = false;
-    
+
   }
 
 
@@ -62,27 +62,30 @@ export class HomeComponent implements OnInit {
   public submitAudio() {
     console.log(this.formGroup);
     let audioPostObject = {
-     fileName: this.formGroup.value.name,
-     audioFile: this.fileBase64,
-     timeStamp: Math.floor(Math.random() * 1000) +1 
+      fileName: this.formGroup.value.name,
+      audioFile: this.fileBase64,
+      timeStamp: Math.floor(Math.random() * 1000) + 1
     }
-      console.log(audioPostObject);
-     this.audioService.sendAudio(audioPostObject);
-    }
+    console.log(audioPostObject);
+    this.audioService.sendAudio(audioPostObject).subscribe((data: any) => {
+
+      console.log(data);
+    });
+  }
 
 
 
   public onAileChange(event) {
-   this.readThis(event.target);
+    this.readThis(event.target);
 
   }
 
-  public readThis(inputValue){
-    var file:File = inputValue.files[0];
-    var myReader:FileReader = new FileReader();
-  
+  public readThis(inputValue) {
+    var file: File = inputValue.files[0];
+    var myReader: FileReader = new FileReader();
+
     myReader.onloadend = (e) => {
-     // this.image = myReader.result;
+
       //console.log(typeof myReader.result);
       this.fileBase64 = myReader.result.split(",")[1];
       //console.log(this.fileBase64);

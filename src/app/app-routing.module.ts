@@ -9,6 +9,7 @@ import { SentimentAnalysisComponent } from './sentiment-analysis/sentiment-analy
 const appRoutes: Routes = [
   { path: 'home' , component: HomeComponent},
   { path: 'sentiment-analysis', component: SentimentAnalysisComponent},
+  { path: 'sentiment-analysis/:id', component: SentimentAnalysisComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full'}
 ]
 

@@ -9,16 +9,14 @@ import { HttpClient } from '@angular/common/http';
 export class AudioServiceService {
 
 
-   apiUrl = "www.google.com";
+   apiUrl = "http://10.44.15.55:5000/predict";
   constructor(private http: HttpClient) { }
 
   public sendAudio(audio: any): Observable<any>{
+    // this.http.post(this.apiUrl, audio).subscribe((data:any) => {
+    //   console.log(data);
+    // })
 
-    console.log(audio);
-    this.http.post(this.apiUrl, audio).subscribe((data:any) => {
-      console.log(data);
-    })
-
-    return null;
+    return this.http.post(this.apiUrl, audio);
   }
 }
