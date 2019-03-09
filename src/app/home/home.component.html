@@ -1,7 +1,7 @@
 <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> -->
 
 <div class="container-fluid">
-  <div class="row">
+  <div class="row option-buttons">
     <div class="text-center">
 
 
@@ -26,42 +26,27 @@
       <div class="col-md-6">
         <input type="file" (change)="onAileChange($event)" accept="audio/*, video/*">
       </div>
-
-      <button type="submit" style="margin: 5px 0px;">Submit</button>
-
+      <div class = "col-md-6">
+      <button type="submit" [disabled] = "!isFileProcessed" style="margin: 5px 0px;">Submit</button>
+      </div>
 
     </form>
 
   </div>
-  <button (click) = "submitthefile()">submit</button>
-
-  <div [hidden]="!recordingsUploaded">
+  
+  <div [hidden]="!recordingsUploaded" class = "uploaded-recordings-class">
     <div>
       <span>{{uploadedRecordingsTitle}}</span>
     </div>
     <ul>
       <li *ngFor="let recording of UploadedRecordings">
-        <span>{{recording.name}}</span>
-        <span></span>
-        <a routerLink="/sentiment-analysis">{{recording.date}}</a>
+        
+        <a routerLink="/sentiment-analysis"><span>{{recording.name}}</span>
+          <span>{{recording.date}}</span></a>
       </li>
     </ul>
 
   </div>
 
-  <!-- <div class = "row">
-  <input type="file" ng2FileSelect [uploader]="uploader" />
-        </div>
-
-        <button type="button" class="btn btn-success btn-xs"
-                                (click)="item.upload()">
-                            <span class="glyphicon glyphicon-upload"></span> Upload
-                        </button> -->
-  <!-- <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
-
-  <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
-    [disabled]="!uploader.getNotUploadedItems().length">
-    Upload an Image
-  </button> -->
 
 </div>

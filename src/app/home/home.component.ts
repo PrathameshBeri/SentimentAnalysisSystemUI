@@ -19,6 +19,8 @@ export class HomeComponent implements OnInit {
 
   recordingsUploaded = true;
 
+  isFileProcessed = false;
+
   uploadedRecordingsTitle = "Uploaded Recordings";
 
   UploadedRecordings: any = [
@@ -39,16 +41,14 @@ export class HomeComponent implements OnInit {
 
   selectedFile: File;
 
+  fileBase64: string;
+
   constructor(private fb: FormBuilder, private cd: ChangeDetectorRef,
     private http: HttpClient, private audioService: AudioServiceService) { }
 
   ngOnInit() {
-
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      console.log('ImageUpload:uploaded:', item, status, response);
-      alert('File uploaded successfully');
-    };
+    this.isFileProcessed = false;
+    
   }
 
 
@@ -61,44 +61,15 @@ export class HomeComponent implements OnInit {
 
   public submitAudio() {
     console.log(this.formGroup);
-    let file: File;
-    let fileList: FileList = this.formGroup.value.audioFile;
-    if (fileList.length > 0) {
-      let file = fileList[0];
-      //console.log(this.audioForm.value.audioFile);
-      let formData: FormData = new FormData();
-      let myReader: FileReader = new FileReader();
-      myReader.readAsDataURL(file);
-      formData.append('audioFile', file);
-      console.log(formData);
-      this.audioService.sendAudio(formData);
+    let audioPostObject = {
+     fileName: this.formGroup.value.name,
+     audioFile: this.fileBase64,
+     timeStamp: Math.floor(Math.random() * 1000) +1 
+    }
+      console.log(audioPostObject);
+     this.audioService.sendAudio(audioPostObject);
     }
 
-
-  }
-
-
-  public onFileChange(event) {
-    console.log(event);
-    let reader = new FileReader();
-
-    if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-
-      reader.onload = () => {
-        this.formGroup.patchValue({
-          file: reader.result
-        });
-
-        console.log(this.formGroup);
-        // need to run CD since file load runs outside of zone
-        this.cd.markForCheck();
-      };
-    }
-
-
-  }
 
 
   public onAileChange(event) {
@@ -112,16 +83,12 @@ export class HomeComponent implements OnInit {
   
     myReader.onloadend = (e) => {
      // this.image = myReader.result;
-      console.log(myReader.result);
+      //console.log(typeof myReader.result);
+      this.fileBase64 = myReader.result.split(",")[1];
+      //console.log(this.fileBase64);
     }
     myReader.readAsDataURL(file);
+    this.isFileProcessed = true;
   }
 
-
-  public submitthefile() {
-    let fd = new FormData();
-    fd.append('wave', this.selectedFile, this.selectedFile.name);
-    console.log(fd.get('wave'));
-    this.http.post("http://www.google.com", fd).subscribe((data) => { console.log("fss") })
-  }
 }
