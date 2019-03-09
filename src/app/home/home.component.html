@@ -1,37 +1,46 @@
-<div class = "container-fluid">
-  <div class = "row">
-    <div class = "text-center">
+<!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> -->
 
-        <button type="button" class="btn btn-primary">
-            Speak into the mic!
-          </button>
-          <button type="button" class="btn btn-primary">
-              Add a recording!
-            </button>
+<div class="container-fluid">
+  <div class="row">
+    <div class="text-center">
+
+
+
+      <button type="button" class="btn btn-primary">
+        Speak into the mic!
+      </button>
+      <button type="button" class="btn btn-primary" (click)="triggerAddRecording()">
+        Add a recording!
+      </button>
+
     </div>
   </div>
 
 
-  <div [hidden] = "!uploadRecording">
+  <div class="form-group" [hidden]="!uploadRecording">
 
-      <form>
-        <div>
-        <input type = "file" name = "fileUpload" accept = "audio/*, video/*">
-        </div>
-        <div>
-        <input type = "submit">
-        </div>
+    <form [formGroup]="audioForm" (ngSubmit)="submitAudio()">
+      <div class="col-md-4">
+        <span>File Name:</span> <input type="text" formControlName="name" class="form-control" id="userName">
+      </div>
+      <div class="col-md-6">
+        <input type="file" style="margin: 5px 0px;" formControlName="audioFile" name="fileUpload"
+          accept="audio/*, video/*">
+      </div>
+      <div class="col-md-6">
+        <input type="submit" style="margin: 5px 0px;">
+      </div>
 
-      </form>
+    </form>
 
   </div>
 
-  <div [hidden] = "!recordingsUploaded">
+  <div [hidden]="!recordingsUploaded">
     <div>
       <span>{{uploadedRecordingsTitle}}</span>
     </div>
     <ul>
-      <li *ngFor = "let recording of UploadedRecordings">
+      <li *ngFor="let recording of UploadedRecordings">
         <span>recording.name</span>
         <span>recording.date</span>
       </li>

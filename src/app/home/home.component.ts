@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
 
-  uploadRecording: boolean = true;
+  uploadRecording: boolean = false;
+
   recordingsUploaded = true;
+
   uploadedRecordingsTitle = "Uploaded Recordings";
+
   UploadedRecordings: any = [
     {name:"firstRecording",date:"3-9-2018"},
     {name:"secondRecording",date:"3-10-2018"},
@@ -19,9 +24,27 @@ export class HomeComponent implements OnInit {
 
   ]
 
-  constructor() { }
+  audioForm = this.fb.group({
+    name: [''],
+    audioFile: ['']
+
+  });
+
+  constructor( private fb: FormBuilder ) { }
 
   ngOnInit() {
   }
 
+
+
+  public triggerAddRecording(){
+
+    this.uploadRecording = !this.uploadRecording;
+
+}
+
+public submitAudio(){
+
+  console.log(this.audioForm);
+}
 }
