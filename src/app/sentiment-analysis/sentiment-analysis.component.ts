@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { RecordStorageService } from '../record-storage.service';
 
 
 @Component({
@@ -21,13 +22,14 @@ export class SentimentAnalysisComponent implements OnInit {
   ]
   overAllEmotion = 'happy';
   fileNumber;
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
-    this.fileNumber = route.snapshot.params.id;
+  constructor(private route: ActivatedRoute, private http: HttpClient, private storage: RecordStorageService) {
+    this.emotions = storage.getemotionArray();
+    console.log(this.emotions);
   }
 
   ngOnInit() {
 
-    this.http.get('').subscribe();
+    // this.http.get('').subscribe();
 
   }
 
@@ -39,6 +41,11 @@ export class SentimentAnalysisComponent implements OnInit {
       case 'angry': return "😡"; break;
       case 'sarcastic': return "🤨"; break;
       case 'neutral': return "😐";break;
+      case 'disgust': return "🤢"; break;
+      case 'positive': return "😊"; break;
+      case 'negative': return "😡"; break;
+      case 'fear': return "😨"; break;
+      return "😀";
     }
   }
 }

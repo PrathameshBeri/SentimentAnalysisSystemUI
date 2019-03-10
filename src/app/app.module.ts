@@ -7,14 +7,13 @@ import { SentimentAnalysisComponent } from './sentiment-analysis/sentiment-analy
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { FileSelectDirective } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SentimentAnalysisComponent,
-    FileSelectDirective
+    
   ],
   imports: [
     BrowserModule,

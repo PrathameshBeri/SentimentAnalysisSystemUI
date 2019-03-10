@@ -3,8 +3,9 @@ import { FormBuilder } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AudioServiceService } from './audio-service.service';
-import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
-import { RecordStorageService } from './record-storage.service';
+
+import { RecordStorageService } from '../record-storage.service';
+import { Router } from '@angular/router';
 
 const URL = 'http://localhost:3000/api/upload';
 @Component({
@@ -27,7 +28,6 @@ export class HomeComponent implements OnInit {
   UploadedRecordings: any = [];
 
 
-  public uploader: FileUploader = new FileUploader({ url: URL, itemAlias: 'photo' });
 
   formGroup = this.fb.group({
     name: [''],
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   fileBase64: string;
 
   constructor(private fb: FormBuilder, private cd: ChangeDetectorRef,
-    private http: HttpClient, private audioService: AudioServiceService, private record: RecordStorageService) { }
+    private http: HttpClient, private audioService: AudioServiceService, private router: Router,  private record: RecordStorageService) { }
 
   ngOnInit() {
     this.isFileProcessed = false;
@@ -69,8 +69,9 @@ export class HomeComponent implements OnInit {
     console.log(audioPostObject);
     this.audioService.sendAudio(audioPostObject).subscribe((data: any) => {
 
+      this.record.setemotionRecording(data);
       console.log(data);
-      this.record.addUploadedRecording(data.file, data.ts);
+      this.router.navigate(['./sentiment-analysis']);
     });
   }
 
@@ -88,7 +89,10 @@ export class HomeComponent implements OnInit {
     myReader.onloadend = (e) => {
 
       //console.log(typeof myReader.result);
-      this.fileBase64 = myReader.result.split(",")[1];
+      let intermediate = myReader.result.toString();
+      
+      this.fileBase64= intermediate.split(',')[1];
+      //console.log(fileBase64arr);
       //console.log(this.fileBase64);
     }
     myReader.readAsDataURL(file);

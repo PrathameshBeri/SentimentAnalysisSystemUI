@@ -5,23 +5,51 @@
   </div>
   <div class="grid">
     <div class="row">
-      <h4>Sentiment Analysis of File - {{fileNumber}}</h4>
+      <h4>Sentiment Analysis of File </h4>
     </div>
 
-    <div class="row" *ngFor = "let emotion of emotions">
-      
-       <span class = "col-md-1 smiley">{{switchEmotion(emotion.sentiment)}}</span><div class="col-md-6 sentiment-emotion">{{emotion.sentiment}}</div>
-      
-  
+    <!-- <div class="row">
+
+      <span class="col-md-1 smiley">{{switchEmotion(emotions.text_sentiment)}}</span>
+      <div class="col-md-6 sentiment-emotion">{{emotions.text_sentiment}}</div>
+
+
+    </div> -->
+
+    <div class="row">
+
+      <div class="row col-md-4">
+        <h4>Sentiment Analysis from voice </h4>
       </div>
-    
-    <div class="row overall-sentiment">
-      <div class="col-md-4 sentiment-emotion ">Overall Sentiment: <b style= "font-size: 1.5em; font-weight: 900">{{overAllEmotion}}</b></div><span class = "col-md-1 smiley">{{switchEmotion(overAllEmotion)}}</span>
+      <div class="row col-md-3">
+        <h4> {{switchEmotion(emotions.voice_sentiment)}}</h4>
+      </div>
+      <div class="row col-md-4">
+        <h4>{{emotions.voice_sentiment}} </h4>
+      </div>
+
     </div>
+
+
+    <div class="row">
+
+      <div class="row col-md-4">
+        <h4>Sentiment Analysis from texxt </h4>
+      </div>
+      <div class="row col-md-3">
+        <h4> {{switchEmotion(emotions.text_sentiment)}}</h4>
+      </div>
+      <div class="row col-md-4">
+        <h4>{{emotions.text_sentiment}} </h4>
+      </div>
+
+    </div>
+
+
   </div>
 
 
   <div class="row home-link">
-      <div class="col-md-4 sentiment-emotion "><a [routerLink] = "['/home']">Home</a></div>
-    </div>
+    <div class="col-md-4 sentiment-emotion "><a [routerLink]="['/home']">Home</a></div>
+  </div>
 </div>
